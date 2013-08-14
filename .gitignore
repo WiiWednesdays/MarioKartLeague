@@ -12,6 +12,8 @@ web/bundles/*
 app/config/parameters.ini
 app/config/parameters.yml
 
+composer.phar
+
 # OS / IDE artifacts
 .idea
 .DS_Store

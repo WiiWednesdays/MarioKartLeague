@@ -1,0 +1,12 @@
+{
+    "name": "wiiwednesday/mario-kart-league",
+    "authors": [
+        {
+            "name": "Rob Masters",
+            "email": "robmasters87@gmail.com"
+        }
+    ],
+    "require": {
+		"silex/silex": "1.0.*@dev"
+    }
+}
