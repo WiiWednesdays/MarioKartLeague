@@ -23,10 +23,10 @@ class DeleteUserCommand extends Command
         $dialog = $this->getHelperSet()->get('dialog');
         $name = $input->getArgument('name') ?: $dialog->ask($output, "User's name: ");
 
-        if ($this->getPredis()->srem('users', $name)) {
-            $output->writeln("<info>Removed user, $name</info>");
+        if ($this->getPredis()->zrem('users', $name)) {
+            $output->writeln("<info>Removed user: $name</info>");
         } else {
-            $output->writeln("<info>Invalid user, $name</info>");
+            $output->writeln("<info>Invalid user: $name</info>");
         }
     }
 

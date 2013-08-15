@@ -28,10 +28,19 @@ class AddUserCommand extends Command
         $dialog = $this->getHelperSet()->get('dialog');
         $name = $input->getArgument('name') ?: $dialog->ask($output, "User's name: ");
 
-        if ($this->getPredis()->sadd('users', $name)) {
-            $output->writeln("<info>Added user, $name</info>");
+        $teams = $this->getPredis()->lrange('teams', 0, -1);
+
+        if ($this->getPredis()->zadd('users', 0, $name)) {
+            $team = $dialog->select(
+                $output,
+                'Add to which team?',
+                $teams,
+                0
+            );
+            $this->getPredis()->hmset("user:$name", 'team', $team);
+            $output->writeln("<info>$name successfully added to {$teams[$team]}</info>");
         } else {
-            $output->writeln("<error>Failed to add user, $name</error>");
+            $output->writeln("<error>Failed to add user: $name</error>");
         }
     }
 
