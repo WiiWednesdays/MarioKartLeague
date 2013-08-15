@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    {% block metadata %}{% endblock %}
+    <title>{% block title %}Mario Kart League{% endblock %}</title>
+    {% block stylesheets %}
+        {#<link rel="stylesheet" href="/css/fakepay.css" />#}
+        <link rel="stylesheet" href="/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/css/bootstrap-responsive.min.css" />
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+    <div id="mkl-container" class="container">
+        <h1>Mario Kart League</h1>
+        {% block content %}{% endblock %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+{% endblock %}
+
+</body>
+</html>

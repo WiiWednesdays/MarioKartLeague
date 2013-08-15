@@ -1,0 +1,4 @@
+mariokartleague:
+  predis:
+      host: %predis.host%
+      port: %predis.port%
