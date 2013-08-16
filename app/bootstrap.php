@@ -1,9 +1,11 @@
 <?php
 
+use Dflydev\Silex\Provider\DoctrineOrm\DoctrineOrmServiceProvider;
 use Knp\Console\ConsoleEvent;
 use Knp\Console\ConsoleEvents;
 use MarioKartLeague\Commands\AddUserCommand;
 use MarioKartLeague\Commands\DeleteUserCommand;
+use Silex\Provider\DoctrineServiceProvider;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Knp\Provider\ConsoleServiceProvider;
@@ -38,10 +40,28 @@ $app->register(new ConsoleServiceProvider(), array(
     'console.project_directory' => __DIR__.'/..'
 ));
 
-$str = sprintf('tcp://%s:%s', $app['mariokartleague']['predis']['host'], $app['mariokartleague']['predis']['port']);
-$app->register(new Predis\Silex\PredisServiceProvider(), array(
-    'predis.parameters' => $str,
-    'predis.options'    => array('profile' => '2.2'),
+$app->register(new DoctrineServiceProvider, array(
+    "db.options" => array(
+        "driver" => $app['mariokartleague']['database']['driver'],
+        "dbname" => $app['mariokartleague']['database']['name'],
+        "host"   => $app['mariokartleague']['database']['host'],
+        "user"   => $app['mariokartleague']['database']['user'],
+        "password" => $app['mariokartleague']['database']['password']
+    ),
+));
+
+$app->register(new DoctrineOrmServiceProvider, array(
+    "orm.proxies_dir" => __DIR__."/cache/proxies",
+    "orm.em.options" => array(
+        "mappings" => array(
+            // Using actual filesystem paths
+            array(
+                "type" => "annotation",
+                "namespace" => "MarioKartLeague\\Entity",
+                "path" => __DIR__."/../src/MarioKartLeague/Entity/",
+            )
+        ),
+    ),
 ));
 
 
@@ -53,6 +73,7 @@ $app['dispatcher']->addListener(ConsoleEvents::INIT, function(ConsoleEvent $even
     $app->add(new AddUserCommand());
     $app->add(new DeleteUserCommand());
 });
+
 
 
 return $app;

@@ -2,4 +2,11 @@
 
 {% block content %}
     home page
+
+    <h3>Teams</h3>
+    <ul>
+        {% for team in teams %}
+            <li>{{ team.name }}</li>
+        {% endfor %}
+    </ul>
 {% endblock %}

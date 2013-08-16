@@ -23,7 +23,14 @@ class DeleteUserCommand extends Command
         $dialog = $this->getHelperSet()->get('dialog');
         $name = $input->getArgument('name') ?: $dialog->ask($output, "User's name: ");
 
-        if ($this->getPredis()->zrem('users', $name)) {
+        $em = $this->getEntityManager();
+
+        $user = $em->getRepository('MarioKartLeague\\Entity\\User')->findOneBy(array(
+            'name' => $name
+        ));
+        if ($user) {
+            $em->remove($user);
+            $em->flush();
             $output->writeln("<info>Removed user: $name</info>");
         } else {
             $output->writeln("<info>Invalid user: $name</info>");
@@ -31,12 +38,11 @@ class DeleteUserCommand extends Command
     }
 
     /**
-     * @return \Predis\Client
+     * @return \Doctrine\ORM\EntityManager
      */
-    protected function getPredis()
+    protected function getEntityManager()
     {
         $app = $this->getSilexApplication();
-
-        return $app['predis'];
+        return $app['orm.em'];
     }
 }

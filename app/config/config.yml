@@ -1,4 +1,11 @@
 mariokartleague:
+  database:
+      driver: pdo_mysql
+      name: %database.name%
+      host: %database.host%
+      user: %database.user%
+      password: %database.password%
+
   predis:
       host: %predis.host%
       port: %predis.port%

@@ -14,7 +14,7 @@
         "symfony/twig-bridge": "~2.1",
         "symfony/yaml": "dev-master",
         "knplabs/console-service-provider": "dev-master",
-        "predis/service-provider": "dev-master"
+        "dflydev/doctrine-orm-service-provider": "1.0.*@dev"
     },
     "autoload": {
         "psr-0": {"MarioKartLeague": "src/"}

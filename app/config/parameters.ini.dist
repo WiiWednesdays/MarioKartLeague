@@ -1,4 +1,9 @@
 ; MarioKartLeague parameters
 
+database.name        = mkl
+database.host        = localhost
+database.user        = root
+database.password    =
+
 predis.host          = 127.0.0.1
 predis.port          = 6379
