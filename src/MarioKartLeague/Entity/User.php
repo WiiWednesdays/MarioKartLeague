@@ -21,6 +21,29 @@ class User
     private $name;
 
     /**
+     * @var Team
+     * @OneToOne(targetEntity="Team")
+     * @JoinColumn(name="team_id", referencedColumnName="id")
+     **/
+    private $team;
+
+    /**
+     * @param Team $team
+     */
+    public function setTeam(Team $team)
+    {
+        $this->team = $team;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTeam()
+    {
+        return $this->team;
+    }
+
+    /**
      * @param mixed $id
      */
     public function setId($id)

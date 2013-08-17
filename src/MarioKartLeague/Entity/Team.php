@@ -21,7 +21,7 @@ class Team
     private $name;
 
     /**
-     * @Column(length=255)
+     * @Column(length=255, nullable=true)
      */
     private $image;
 

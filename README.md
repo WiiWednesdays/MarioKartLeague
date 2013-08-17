@@ -54,6 +54,27 @@ server {
 }
 ```
 
-#### apache2
+## Usage
 
-To-do
+Basic administration is done via the console; `app/console`. Show all available console commands by executing the console with no arguments:
+```bash
+cd /path/to/MarioKartLeague
+app/console
+```
+
+### Examples
+
+Create a team: (will run interactively if no arguments are provided)
+```bash
+app/console team:add Pirates
+```
+
+Create a user and assign to a team: (will run interactively if no arguments are provided)
+```bash
+app/console user:add Username
+```
+
+Assign an existing user to a team: (will run interactively if no arguments are provided)
+```bash
+app/console user:assign Username
+```

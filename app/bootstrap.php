@@ -3,8 +3,6 @@
 use Dflydev\Silex\Provider\DoctrineOrm\DoctrineOrmServiceProvider;
 use Knp\Console\ConsoleEvent;
 use Knp\Console\ConsoleEvents;
-use MarioKartLeague\Commands\AddUserCommand;
-use MarioKartLeague\Commands\DeleteUserCommand;
 use Silex\Provider\DoctrineServiceProvider;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,6 +24,7 @@ $envConfig = __DIR__."/config/config_$env.yml";
 if (file_exists($envConfig)) {
     $app->register(new Igorw\Silex\ConfigServiceProvider($envConfig));
 }
+
 
 /**
  * Service providers
@@ -70,10 +69,12 @@ $app->register(new DoctrineOrmServiceProvider, array(
  */
 $app['dispatcher']->addListener(ConsoleEvents::INIT, function(ConsoleEvent $event) {
     $app = $event->getApplication();
-    $app->add(new AddUserCommand());
-    $app->add(new DeleteUserCommand());
+    $app->add(new \MarioKartLeague\Commands\AddTeamCommand());
+    $app->add(new \MarioKartLeague\Commands\DeleteTeamCommand());
+    $app->add(new \MarioKartLeague\Commands\AddUserCommand());
+    $app->add(new \MarioKartLeague\Commands\AssignUserCommand());
+    $app->add(new \MarioKartLeague\Commands\DeleteUserCommand());
 });
-
 
 
 return $app;
